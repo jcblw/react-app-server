@@ -1,50 +1,41 @@
 'use strict'
 
+import path from 'path'
 import express from 'express'
 import browserify from 'browserify'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 // this is just a temp way to see this working
-import {App} from '../components/App'
+import appRouter from './app-router'
+import {template} from '../templates/_layout'
+
+function handleDocRequest (req, res) {
+  // do a fetch hear to get props
+  const {count} = req.query
+  const Component = getComponent(req)
+  // this is just an example
+  const scriptName = req.path.split('/').pop().toLowerCase()
+  const props = {count, scriptName}
+  // need to compile data like which script to include
+  // which app to build based on
+  // what meta data do we need
+
+  if (!Component) {
+    res
+      .status(404)
+      .send('404 not found')
+  }
+  const _template = template(ReactDOMServer.renderToString(<Component {...props} />), props, safeStringify)
+  const html = ReactDOMServer.renderToStaticMarkup(_template)
+  res.send(`<!doctype html>${html}`)
+}
 
 function startApp (config = {}) {
   const app = express()
   const port = config.PORT || 3000
 
-  app.get('/', (req, res) => {
-    // do a fetch hear to get props
-    const {count} = req.query
-    const props = {count}
-    const Component = getComponent()
-
-    if (!Component) {
-      res
-        .status(404)
-        .send('404 not found')
-    }
-    const html = ReactDOMServer.renderToStaticMarkup(
-      <html>
-        <head>
-          <title>My Awesome Serverside Rendered Component</title>
-          <meta charSet='utf8' />
-        </head>
-        <body>
-          <div id='app' dangerouslySetInnerHTML={{
-            __html: ReactDOMServer.renderToString(<Component {...props} />)
-          }} />
-          <script src='/js/app.js' />
-          <script dangerouslySetInnerHTML={{
-            __html: `
-              var app = require('app')
-              app(${safeStringify(props)})
-            `
-          }} />
-        </body>
-      </html>
-    )
-
-    res.send(`<!doctype html>${html}`)
-  })
+  app.get('/', handleDocRequest)
+  app.get('/hello', handleDocRequest)
 
   app.get('/js/:filename.js', function (req, res) {
     const {filename} = req.params
@@ -64,8 +55,12 @@ function startApp (config = {}) {
   return app
 }
 
-function getComponent () {
-  return App
+function getComponent (req) {
+  const appname = appRouter(req.path)
+  const _app = appname || 'App'
+  const pathname = path.resolve(process.cwd(), './lib/components/', `${_app}.js`)
+  // fs stat to see if file is present
+  return require(pathname)[_app]
 }
 
 function safeStringify (obj) {
