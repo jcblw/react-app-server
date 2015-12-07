@@ -1,12 +1,12 @@
 {
-  "name": "react-app-server",
+  "name": "react-component-server-example",
   "version": "1.0.0",
   "description": "A server that will render out isomophic react apps",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node -r dotenv/config index.js",
-    "dev-start": "nodemon -r dotenv/config index.js",
+    "start": "node -r dotenv/config lib/index.js",
+    "dev-start": "nodemon -r dotenv/config lib/index.js",
     "compile": "babel src --out-dir lib",
     "watch": "babel src --out-dir lib --watch",
     "postinstall": "npm run compile"
@@ -27,12 +27,11 @@
   },
   "homepage": "https://github.com/jcblw/react-app-server#readme",
   "dependencies": {
-    "browserify": "^12.0.1",
     "dotenv": "^1.2.0",
     "express": "^4.13.3",
     "react": "^0.14.3",
-    "react-dom": "^0.14.3",
-    "react-dom-stream": "^0.3.0"
+    "react-component-server": "^0.2.0",
+    "react-dom": "^0.14.3"
   },
   "devDependencies": {
     "babel": "^6.1.18",

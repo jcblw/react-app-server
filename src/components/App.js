@@ -20,4 +20,4 @@ class App extends Component {
   }
 }
 
-export {App}
+module.exports = App

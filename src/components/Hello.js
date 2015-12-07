@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react'
 
 class Hello extends Component {
@@ -20,4 +19,4 @@ class Hello extends Component {
   }
 }
 
-export {Hello}
+module.exports = Hello

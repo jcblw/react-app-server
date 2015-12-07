@@ -1,4 +1,15 @@
-# React App Server
+# React Component Server Example
 
-This is going to start as a sample isomophic react application with a basic server
-but then will turn into a full blown flux proxy coll stuff server (hopefully). Im really just playing around with this.
+this is an example server for [react-component-server](https://github.com/jcblw/react-component-server)
+
+## To Run
+
+```
+npm install
+npm run compile
+npm start
+```
+
+## To Develop on this
+
+The source of this server is in the `/src` dir and will get compiled into the `/lib` directory via the `npm run compile` commmand. You can also watch the files and compile on change using `npm run watch`. As well as restart your server using the `npm run dev-start` command.
