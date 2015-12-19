@@ -26,16 +26,21 @@ componentServer.get('/', (req, res, done) => {
 componentServer.get('/hello', (req, res, done) => {
   const {query} = req
   done({
+    bundle: true,
     component: './Hello.js',
     props: {count: query.count}
   })
 })
-componentServer.get('/woot', {
-  component: './Woot.js'
-})
+componentServer.get('/woot', {component: './Woot.js'})
+componentServer.get('/bar', {component: './Bar.js'})
 componentServer.get('/another')
-componentServer.on('error', (err) => {
-  throw err
+componentServer.on('error', (err, res) => {
+  res.status(500)
+  res.send(`
+    <h4>500 - Oh noes</h4>
+    <p>${err.message}</p>
+    <p>${err.stack}</p>
+  `)
 })
 
 // listen to port
