@@ -26,15 +26,15 @@
   },
   "homepage": "https://github.com/jcblw/react-app-server#readme",
   "dependencies": {
-    "dotenv": "^1.2.0",
+    "dotenv": "^4.0.0",
     "express": "^4.13.3",
     "invariant": "^2.2.0",
-    "react": "^0.14.3",
-    "react-component-server": "^0.2.0",
-    "react-dom": "^0.14.3"
+    "react": "^15.5.4",
+    "react-component-server": "^1.0.0",
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "babel": "^5.8.34",
+    "babel": "^6.23.0",
     "nodemon": "^1.8.1"
   }
 }
