@@ -1,5 +1,7 @@
 # React Component Server Example
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jcblw/react-component-server-example.svg)](https://greenkeeper.io/)
+
 this is an example server for [react-component-server](https://github.com/jcblw/react-component-server)
 
 ## To Run
